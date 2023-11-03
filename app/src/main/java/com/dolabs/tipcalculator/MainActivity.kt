@@ -3,6 +3,7 @@ package com.dolabs.tipcalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -73,13 +74,30 @@ fun TopHeaderSection(totalPerPerson : Double  = 0.0){
     }
     
 }
+@Preview(showBackground = true)
+
+@Composable
+fun MainContent(){
+    Surface(modifier = Modifier
+        .padding(2.dp)
+        .fillMaxWidth(),
+                shape = RoundedCornerShape(12.dp),
+                border = BorderStroke(width = 2.dp, color = Color.LightGray)
+    ){
+        Column {
+            Text(text = "hello")
+            Text(text = "hello")
+        }
+    }
+
+}
 
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
 }
 
-@Preview(showBackground = true)
+////@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     TipCalculatorTheme {
