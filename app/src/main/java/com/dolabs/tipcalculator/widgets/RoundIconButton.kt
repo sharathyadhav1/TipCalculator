@@ -1,7 +1,9 @@
 package com.dolabs.tipcalculator.widgets
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -27,7 +29,7 @@ fun RoundedIconButton(
 ){
     Card(modifier = modifier.padding(4.dp).
                     clickable {onclick.invoke() }
-                        .then(IconButtonSizeModifier),
+                       ,
         shape = CircleShape,
         backgroundColor = backgroundColor,
         elevation = elevation) {
