@@ -1,12 +1,14 @@
 package com.dolabs.tipcalculator
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -14,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -29,7 +32,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp{
-                Text(text = "hello again")
+                MainContent()
             }
         }
     }
@@ -78,9 +81,25 @@ fun TopHeaderSection(totalPerPerson : Double  = 0.0){
     }
     
 }
+@OptIn(ExperimentalComposeUiApi::class)
 @Preview(showBackground = true)
 @Composable
 fun MainContent(){
+
+    BillForm(){billAmt ->
+        Log.e("#####","$billAmt")
+
+    }
+
+
+
+
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun BillForm(modifier :Modifier = Modifier,
+             onValChange:(String) -> Unit){
 
     val totalBillState = remember {
         mutableStateOf("")
@@ -88,11 +107,9 @@ fun MainContent(){
 
     val validState = remember(totalBillState.value) {
         totalBillState.value.trim().isNotEmpty()
-
     }
 
-    val keyBoardController = LocalSoftwareKeyboardController.current
-
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(modifier = Modifier
         .padding(2.dp)
@@ -101,18 +118,23 @@ fun MainContent(){
         border = BorderStroke(width = 2.dp, color = Color.LightGray)
     ){
         Column {
-            InputField(valueState = totalBillState.value,
-                        labelId = "Enter Bill",
-                        enabled = true,
-                        isSingleLine = true,
-                        onAction = KeyboardActions {
-                            if(!validState) return@keyboardActions
-                        })
+            InputField(valueState = totalBillState,
+                labelId = "Enter Bill",
+                enabled = true,
+                isSingleLine = true,
+                onAction = KeyboardActions{
+                    if (!validState) return@KeyboardActions
+                    //onvaluechange
+
+                    onValChange(totalBillState.value.trim())
+
+                    keyboardController?.hide()
+                })
 
         }
     }
-
 }
+
 
 @Composable
 fun Greeting(name: String) {
