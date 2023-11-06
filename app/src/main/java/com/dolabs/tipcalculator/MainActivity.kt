@@ -117,13 +117,14 @@ fun BillForm(modifier :Modifier = Modifier,
 
     Surface(modifier = Modifier
         .padding(10.dp)
-        .fillMaxWidth(),
+        .fillMaxWidth().wrapContentHeight(),
+
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 2.dp, color = Color.LightGray)
     ){
-        Column (modifier = Modifier.padding(6.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.Start){
+        Column ( /*modifier = Modifier.padding(6.dp)
+           verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start*/){
             InputField(
                 modifier = Modifier.padding(10.dp),
                 valueState = totalBillState,
