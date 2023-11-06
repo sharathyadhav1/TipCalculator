@@ -12,6 +12,9 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Remove
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dolabs.tipcalculator.components.InputField
 import com.dolabs.tipcalculator.ui.theme.TipCalculatorTheme
+import com.dolabs.tipcalculator.widgets.RoundedIconButton
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,13 +116,17 @@ fun BillForm(modifier :Modifier = Modifier,
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Surface(modifier = Modifier
-        .padding(2.dp)
+        .padding(10.dp)
         .fillMaxWidth(),
         shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         border = BorderStroke(width = 2.dp, color = Color.LightGray)
     ){
-        Column {
-            InputField(valueState = totalBillState,
+        Column (modifier = Modifier.padding(6.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start){
+            InputField(
+                modifier = Modifier.padding(10.dp),
+                valueState = totalBillState,
                 labelId = "Enter Bill",
                 enabled = true,
                 isSingleLine = true,
@@ -130,6 +138,31 @@ fun BillForm(modifier :Modifier = Modifier,
 
                     keyboardController?.hide()
                 })
+            if(validState){
+                Row(modifier = Modifier.padding(3.dp),
+                    horizontalArrangement = Arrangement.Start){
+
+                    Text(text = "Split", modifier = Modifier.align(
+                        alignment = Alignment.CenterVertically
+                    ))
+
+                    Spacer(modifier = Modifier.width(120.dp))
+
+                    Row(modifier = Modifier.padding(horizontal = 3.dp),
+                        horizontalArrangement = Arrangement.End){
+                        RoundedIconButton(imageVector = Icons.Default.Remove,
+                            onclick = {
+
+                        })
+                        RoundedIconButton(imageVector = Icons.Default.Add,
+                            onclick = {
+
+                        })
+                    }
+
+
+                }
+            }
 
         }
     }
